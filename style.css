@@ -1,0 +1,156 @@
+header{
+  height: 60vh;
+}
+main{
+  min-height: 29vh;
+
+}
+
+.container_header2{
+  height: 15vh;
+}
+
+
+
+.bg-fondo{
+  background-image: url(/assets/images/carrusel1.jpg);
+  background-position: center;
+  background-size: contain;
+  height: 41vh;
+  
+}
+
+.letra_inicio{
+  display: flex;
+   justify-content: center;
+  color: white;
+}
+
+
+footer{
+  background-color: rgba(19, 18, 18, 0.973);
+  color: white;
+height: 11vh;
+display: flex;
+  }
+
+
+.card_image{
+  height: 30vh;
+}
+
+.bg-checkbox{
+  color:white
+}
+
+.social_media a{
+  color: white;
+}
+
+.bg-fondo2{
+  background-image: url(/assets/images/carrusel2.jpg);
+  background-position: center;
+  background-size: contain;
+  height: 41vh;
+  
+}
+.bg-fondo3{
+  background-image: url(/assets/images/carrusel3.jpg);
+  background-position: center;
+  background-size: contain;
+  height: 41vh;
+  
+}
+
+.active{
+  background-color: rgb(182, 13, 112);
+  color: white;
+  border-radius: 4px;
+}
+
+.bg-fondo4{
+  background-image: url(/assets/images/contact.avif);
+  background-position: center;
+  background-size: contain;
+  height: 41vh;
+  
+}
+
+.container_contact{
+  width: 40%;
+  border: 2px solid black;
+border-radius: 5px;
+box-shadow: 7px 13px 37px #000;
+}
+
+.container_description{
+  width: 80%;
+  height: 66.5vh;
+  border: 2px solid black;
+border-radius: 5px;
+box-shadow: 7px 13px 37px #000;
+}
+
+.image_description{
+width: 50%;
+height: 99%;
+border: 2px solid black;
+}
+
+.text_description{
+  width: 50%;
+height: 99%;
+border: 2px solid black;
+}
+
+.bg-fondo5{
+  background-image: url(/assets/images/stats.jpg);
+  background-position: center;
+  background-size: contain;
+  height: 41vh;
+  
+}
+
+.container_stats{
+  width: 80%;
+  height: 70vh;
+  border: 2px solid black;
+border-radius: 5px;
+box-shadow: 7px 13px 37px #000;
+}
+
+table,td,tr{
+  border: 1px solid black;
+}
+
+table{
+  width: 100%;
+}
+td,tr{
+  height: 25px;
+}
+
+th{
+  background-color: rgb(216, 216, 191);
+  
+}
+
+.card{
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 5px;
+  box-shadow: 7px 13px 37px #000;
+  
+}
+
+.card-text{
+  min-height: 13vh;
+ 
+}
+
+
+
+
+
+
+
+
