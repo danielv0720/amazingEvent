@@ -5,13 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Amazing Events</title>
+    
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
       crossorigin="anonymous"
     />
+   
     <link rel="stylesheet" href="style.css" />
+
   </head>
   <body>
     <header class="container_header">
@@ -78,71 +81,22 @@
       </section>
       <section class="navbar bg-dark bg-checkbox">
         <div class="container-fluid d-flex">
-          <div class="form-check form-check-inline">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              id="inlineCheckbox1"
-              value="option1"
-            />
-            <label class="form-check-label" for="inlineCheckbox1"
-              >category1</label
-            >
+          <div id="js-checkbox" class="form-check form-check-inline">
+          
           </div>
-          <div class="form-check form-check-inline">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              id="inlineCheckbox2"
-              value="option2"
-            />
-            <label class="form-check-label" for="inlineCheckbox2"
-              >category2</label
-            >
-          </div>
-          <div class="form-check form-check-inline">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              id="inlineCheckbox2"
-              value="option2"
-            />
-            <label class="form-check-label" for="inlineCheckbox2"
-              >category3</label
-            >
-          </div>
-          <div class="form-check form-check-inline">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              id="inlineCheckbox2"
-              value="option2"
-            />
-            <label class="form-check-label" for="inlineCheckbox2"
-              >category4</label
-            >
-          </div>
-          <div class="form-check form-check-inline">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              id="inlineCheckbox2"
-              value="option2"
-            />
-            <label class="form-check-label" for="inlineCheckbox2"
-              >category5</label
-            >
-          </div>
+
           <form class="d-flex" role="search">
             <input
               class="form-control me-2 w-20"
               type="search"
               placeholder="Search"
               aria-label="Search"
+              id ="js-search"
+              
             />
-            <button class="btn btn-outline-secondary" type="submit">
-              Search
-            </button>
+            <!-- <button id="js-button"  class="btn btn-outline-secondary" type="button" value="Search">Search</button> -->
+            
+               
           </form>
         </div>
       </section>
@@ -220,5 +174,8 @@
     ></script>
     <script src="./data.js"></script>
     <script src="./home.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
   </body>
 </html>

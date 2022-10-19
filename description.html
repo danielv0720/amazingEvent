@@ -13,6 +13,7 @@
     />
     <link rel="stylesheet" href="style.css" />
   </head>
+
   <body>
     <header class="container_header2">
       <div class="">
@@ -61,7 +62,9 @@
                   >
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link active text-light" href="#">Contact</a>
+                  <a class="nav-link text-light" href="./contact.html"
+                    >Contact</a
+                  >
                 </li>
                 <li class="nav-item">
                   <a class="nav-link text-light" href="./stats.html">Stats</a>
@@ -73,24 +76,14 @@
       </div>
     </header>
 
-    <main class="main p-4 d-flex justify-content-center">
-      <div class="container_description p-3 d-flex gap-3">
-        <section class="image_description">
-          <img src="..." alt="imgdescription" />
-        </section>
-        <section
-          class="text_description d-flex flex-column justify-content-center align-items-center"
-        >
-          <h2>Titulo</h2>
-          <p>Texto descriptivo</p>
-          <p>Texto descriptivo</p>
-          <p>Texto descriptivo</p>
-        </section>
-      </div>
-    </main>
+    <main
+      id="container_descriptionP"
+      class="main p-4 d-flex justify-content-center"
+    ></main>
 
-    <footer class="gap-3 p-3">
-      <section class="social_media">
+    <footer class="footer">
+      <div class=" gap-3 p-3 d-flex  ">
+          <section class="social_media">
         <a href="https://www.instagram.com/">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -135,10 +128,14 @@
             /></svg
         ></a>
       </section>
-
-      <section class="texth3">
-        <h3>Cohort 35</h3>
+    </div>
+    <div class="texth3 p-3  ">
+      <section >
+        <h3>Cohort 35/36</h3>
       </section>
+    </div>
+
+
     </footer>
 
     <script
@@ -146,5 +143,7 @@
       integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
       crossorigin="anonymous"
     ></script>
+    <script src="./data.js"></script>
+    <script src="./description.js"></script>
   </body>
 </html>

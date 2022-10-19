@@ -1,7 +1,7 @@
-header{
+*header{
   height: 60vh;
 }
-main{
+*main{
   min-height: 29vh;
 
 }
@@ -84,23 +84,25 @@ box-shadow: 7px 13px 37px #000;
 }
 
 .container_description{
-  width: 80%;
-  height: 66.5vh;
-  border: 2px solid black;
+  width: 50%;
+ height: 100vh;
+    border: 2px solid black;
 border-radius: 5px;
 box-shadow: 7px 13px 37px #000;
 }
 
 .image_description{
-width: 50%;
-height: 99%;
+width: 99%;
+height: 50%;
+display: flex;
 border: 2px solid black;
 }
 
 .text_description{
-  width: 50%;
-height: 99%;
-border: 2px solid black;
+  width: 99%;
+  
+  display: flex;
+  border: 2px solid black;
 }
 
 .bg-fondo5{
@@ -125,6 +127,7 @@ table,td,tr{
 
 table{
   width: 100%;
+ 
 }
 td,tr{
   height: 25px;
@@ -147,7 +150,17 @@ th{
  
 }
 
+.image_description img{
+  width: 100%;
+  height: 100%;
+}
 
+@media screen and (max-width:998px){
+  .container_description{
+    width: 90%;
+   height: 70vh;
+  }
+}
 
 
 

@@ -78,60 +78,8 @@
       </section>
       <section class="navbar bg-dark bg-checkbox">
         <div class="container-fluid d-flex">
-          <div class="form-check form-check-inline">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              id="inlineCheckbox1"
-              value="option1"
-            />
-            <label class="form-check-label" for="inlineCheckbox1"
-              >category1</label
-            >
-          </div>
-          <div class="form-check form-check-inline">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              id="inlineCheckbox2"
-              value="option2"
-            />
-            <label class="form-check-label" for="inlineCheckbox2"
-              >category2</label
-            >
-          </div>
-          <div class="form-check form-check-inline">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              id="inlineCheckbox2"
-              value="option2"
-            />
-            <label class="form-check-label" for="inlineCheckbox2"
-              >category3</label
-            >
-          </div>
-          <div class="form-check form-check-inline">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              id="inlineCheckbox2"
-              value="option2"
-            />
-            <label class="form-check-label" for="inlineCheckbox2"
-              >category4</label
-            >
-          </div>
-          <div class="form-check form-check-inline">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              id="inlineCheckbox2"
-              value="option2"
-            />
-            <label class="form-check-label" for="inlineCheckbox2"
-              >category5</label
-            >
+          <div id="js-checkbox" class="form-check form-check-inline">
+            
           </div>
           <form class="d-flex" role="search">
             <input
@@ -139,10 +87,12 @@
               type="search"
               placeholder="Search"
               aria-label="Search"
+              id ="js-search"
+              
             />
-            <button class="btn btn-outline-secondary" type="submit">
-              Search
-            </button>
+            <button id="js-button"  class="btn btn-outline-secondary" type="button" value="Search">Search</button>
+              
+            
           </form>
         </div>
       </section>
@@ -150,7 +100,7 @@
 
     <main>
 
-      <div id="container_main"
+      <div id="container_main_upcoming"
         class="card_container d-flex justify-content-evenly flex-wrap p-5 gap-3"
       >
         
