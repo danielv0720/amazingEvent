@@ -1,7 +1,12 @@
-*header{
+header{
   height: 60vh;
 }
-*main{
+
+.header_description{
+  height: 15vh;
+}
+
+main{
   min-height: 29vh;
 
 }
@@ -85,22 +90,22 @@ box-shadow: 7px 13px 37px #000;
 
 .container_description{
   width: 50%;
- height: 100vh;
-    border: 2px solid black;
+ height: 100%;
+  border: 2px solid black;
 border-radius: 5px;
 box-shadow: 7px 13px 37px #000;
 }
 
 .image_description{
 width: 99%;
-height: 50%;
+height: 40%;
 display: flex;
 border: 2px solid black;
 }
 
 .text_description{
   width: 99%;
-  
+  height: 60%;
   display: flex;
   border: 2px solid black;
 }
@@ -115,11 +120,11 @@ border: 2px solid black;
 
 .container_stats{
   width: 80%;
-  height: 70vh;
   border: 2px solid black;
 border-radius: 5px;
 box-shadow: 7px 13px 37px #000;
 }
+
 
 table,td,tr{
   border: 1px solid black;
@@ -127,10 +132,12 @@ table,td,tr{
 
 table{
   width: 100%;
+  
  
 }
 td,tr{
-  height: 25px;
+  
+  height: 25%;
 }
 
 th{
@@ -157,13 +164,44 @@ th{
 
 @media screen and (max-width:998px){
   .container_description{
-    width: 90%;
-   height: 70vh;
+    width: 80%;
+   height: 70%;
   }
+  .image_description{
+    width: 99%;
+    height: 60%;
+}
+.text_description{
+  width: 99%;
+  height: 40%;
+}
+.container_contact{
+  width: 90%;
+}
+.container_stats{
+  width: 99%;
+}
 }
 
+@media screen and (max-width:425px){
+  .container_stats{
+    width: 100%;
+  }
+  table{
+    width: 100%;
+}
+}
 
-
-
-
+@media screen and (max-width:320px){
+  .container_stats{
+    width: 100%;
+  }
+  table{
+    width:100%;
+}
+.th{
+  font-size: 05px;
+ 
+}
+}
 

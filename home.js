@@ -1,8 +1,30 @@
 let containerMain = document.getElementById("container_main");
 const categoriesSelected = [];
-let eventsFound = []
+let eventsFound = [];
+let events = []
+let inputSearchValue = '';
 
-function eventosTotales(evento) {
+async function fetchApi() {
+  try {
+    let res = await fetch("https://mh-amazing.herokuapp.com/amazing");
+    let data = await res.json();
+    events = data.events;
+    events.forEach(imprimirEventosTotales);
+    let categorias = events.map(function (evento) {
+      return evento.category;
+    });
+    
+    categorias = new Set(categorias);
+    categorias.forEach(imprimirCategorias);
+
+    return events;
+  } catch (error) {
+    console.log("hubo error");
+  }
+}
+fetchApi();
+
+function imprimirEventosTotales(evento) {
   containerMain.innerHTML += `
   <div class="card" style="width: 18rem">
   <img
@@ -14,65 +36,52 @@ function eventosTotales(evento) {
     <p class="card-text"> ${evento.description}</p>
     <div class="d-flex gap-3">
       <p>price $ ${evento.price}</p>
-      <a href="./description.html?id=${evento._id}" class="btn btn-dark">Ver Mas</a>
+      <a href="./description.html?id=${evento.id}" class="btn btn-dark">Ver Mas</a>
     </div>
   </div>
   </div>
  `;
 }
 
-events.forEach(eventosTotales);
-
-
 // -----------------------------------------------------------------------------------------------------//
 
 let inputSearch = document.getElementById("js-search");
 
 inputSearch.addEventListener("input", function (event) {
-  let eventosFiltro = null
+  let eventosFiltro = null;
+  inputSearchValue = event.target.value
   console.log(eventsFound);
 
   if (eventsFound.length) {
-    eventosFiltro = eventsFound.filter((evento) => {
-      return evento.name.toLowerCase().includes(event.target.value.toLowerCase());
-    });
-  
-
+    eventosFiltro = buscarEventos(eventsFound) 
+    
   } else {
-    eventosFiltro = events.filter((evento) => {
-      return evento.name.toLowerCase().includes(event.target.value.toLowerCase());
-    });
+    eventosFiltro = buscarEventos(events) 
   }
 
   containerMain.innerHTML = "";
 
-
-  eventosFiltro.forEach(eventosTotales);
+  eventosFiltro.forEach(imprimirEventosTotales);
 });
-
 
 //--------------------------------------------------------------------------------------------//
-let categorias = events.map(function (evento) {
-  return evento.category;
-});
-categorias = new Set(categorias); // borrar duplicados
-
 let inputcheckbox = document.getElementById("js-checkbox");
 
-categorias.forEach(function (evento) { // imprimir cards
+function imprimirCategorias(evento) {
+  // imprimir cards
   inputcheckbox.innerHTML += `
   <div class="form-check form-check-inline">
   <input
     class="form-check-input"
     type="checkbox"
-    id="inlineCheckbox1"
+    id="${evento}"
     value="${evento}"
   />
-  <label class="form-check-label" for="inlineCheckbox1"
+  <label class="form-check-label" for=${evento}
     >${evento}</label
   >
   </div>`;
-});
+}
 
 inputcheckbox.addEventListener("click", (event) => {
   console.log(event);
@@ -81,41 +90,79 @@ inputcheckbox.addEventListener("click", (event) => {
   console.log(checkboxValue);
 
   if (checkboxValue) {
-    const categoriesSelectedIndex = categoriesSelected.findIndex(// buscar indice
-      (evento) => evento === checkboxValue
+    const categoriesSelectedIndex = categoriesSelected.findIndex(
+      // buscar indice
+      (event) => event === checkboxValue
     );
 
     console.log(categoriesSelectedIndex);
 
     if (categoriesSelectedIndex !== -1) {
-      categoriesSelected.splice(categoriesSelectedIndex, 1); // Para borrar un elemento del array 
-
-      eventsFound = eventsFound.filter(e => e.category !== checkboxValue)// borrar eventos
-      console.log(eventsFound);
-
+      eliminarCategoria(categoriesSelectedIndex, checkboxValue)
     } else {
-      categoriesSelected.push(checkboxValue);
+      agregarCategoria(checkboxValue)
     }
-    eventsFound = []
+    eventsFound = [];
 
-    for (let i = 0; i < categoriesSelected.length; i++) {// validacion para
-      for (let j = 0; j < events.length; j++) {
-        if (categoriesSelected[i] === events[j].category) {
-          eventsFound.push(events[j])
-        }
-      }
+    if (categoriesSelected.length) {
+      fitrarEventosConCategoriasSelecciondas()
     }
 
     containerMain.innerHTML = "";
 
     if (eventsFound.length) {
-      eventsFound.forEach(eventosTotales);
+      imprimirEventosConBusquedas(eventsFound)
     } else {
       console.log(events);
-      events.forEach(eventosTotales);
+      imprimirEventosConBusquedas(events)
     }
-  
+
     console.log(categoriesSelected);
   }
-
 });
+
+// Filtra los eventos cuando haya alguna categoria (check) seleccionada
+function fitrarEventosConCategoriasSelecciondas() {
+  for (let i = 0; i < categoriesSelected.length; i++) {
+    for (let j = 0; j < events.length; j++) {
+      if (categoriesSelected[i] === events[j].category) {
+        eventsFound.push(events[j]);
+      }
+    }
+  }
+}
+
+// Imprime los eventos y si contiene alguna busqueda en el buscador (inputSearch) aplica esa busqueda dentro esos eventos
+function imprimirEventosConBusquedas(events) {
+  if (inputSearchValue) {
+    const eventsFoundByinputSearchValue = buscarEventos(events)
+    eventsFoundByinputSearchValue.forEach(imprimirEventosTotales);
+  } else {
+    events.forEach(imprimirEventosTotales);
+  }
+}
+
+// Busca los eventos en el buscador (inputSearch)
+function buscarEventos(events) {
+  const result = events.filter((evento) => {
+    return evento.name
+      .toLowerCase()
+      .includes(inputSearchValue.toLowerCase());
+  });
+
+  return result;
+}
+
+// Guarda en memoria la categoria seleccionada
+function agregarCategoria(checkboxValue) {
+  categoriesSelected.push(checkboxValue);
+}
+
+// Elimina en memoria la categoria seleccionada
+function eliminarCategoria(categoriesSelectedIndex, checkboxValue) {
+  categoriesSelected.splice(categoriesSelectedIndex, 1);
+
+  eventsFound = eventsFound.filter((e) => e.category !== checkboxValue);
+  console.log(eventsFound);
+}
+

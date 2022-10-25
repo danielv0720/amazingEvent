@@ -2,14 +2,134 @@ let containerMainPast = document.getElementById("container_main_past");
 
 const categoriesSelected = [];
 let eventsFound = []
+let events = []
+let inputSearchValue = '';
 
-let eventosPasados = events.filter(function(evento){
-  if(currentDate > evento.date){
-    return evento
+async function fetchApi(){
+  try{
+    let res = await fetch ('https://mh-amazing.herokuapp.com/amazing?time=past')
+    let data = await res.json()
+    let events = data.events
+
+    let eventosPasados = events.filter(function(evento){
+      return evento
+    })
+    eventosPasados.forEach(eventosPasados2)
+    let categorias = eventosPasados.map(function (evento) {
+      return evento.category;
+    });
+    categorias = new Set(categorias);
+    categorias.forEach(imprimirCategorias)
+    
+    inputcheckbox.addEventListener("click", (event) => {
+  console.log(event);
+
+  const checkboxValue = event.target.value; // obtener valor del check
+  console.log(checkboxValue);
+
+  if (checkboxValue) {
+    const categoriesSelectedIndex = categoriesSelected.findIndex(
+      // buscar indice
+      (event) => event === checkboxValue
+    );
+
+    console.log(categoriesSelectedIndex);
+
+    if (categoriesSelectedIndex !== -1) {
+      eliminarCategoria(categoriesSelectedIndex, checkboxValue)
+    } else {
+      agregarCategoria(checkboxValue)
+    }
+    eventsFound = [];
+
+    if (categoriesSelected.length) {
+      fitrarEventosConCategoriasSelecciondas()
+    }
+
+    containerMainPast.innerHTML = "";
+
+    if (eventsFound.length) {
+      imprimirEventosConBusquedas(eventsFound)
+    } else {
+      console.log(events);
+      imprimirEventosConBusquedas(events)
+    }
+
+    console.log(categoriesSelected);
+  }
+});
+
+// Filtra los eventos cuando haya alguna categoria (check) seleccionada
+function fitrarEventosConCategoriasSelecciondas() {
+  for (let i = 0; i < categoriesSelected.length; i++) {
+    for (let j = 0; j < events.length; j++) {
+      if (categoriesSelected[i] === events[j].category) {
+        eventsFound.push(events[j]);
       }
-})
+    }
+  }
+}
 
-//let eventosPasados =events.filter(everyEvent => currenDate > evento.date)
+// Imprime los eventos y si contiene alguna busqueda en el buscador (inputSearch) aplica esa busqueda dentro esos eventos
+function imprimirEventosConBusquedas(events) {
+  if (inputSearchValue) {
+    const eventsFoundByinputSearchValue = buscarEventos(events)
+    eventsFoundByinputSearchValue.forEach(eventosPasados2);
+  } else {
+    events.forEach(eventosPasados2);
+  }
+}
+
+// Busca los eventos en el buscador (inputSearch)
+function buscarEventos(events) {
+  const result = events.filter((evento) => {
+    return evento.name
+      .toLowerCase()
+      .includes(inputSearchValue.toLowerCase());
+  });
+
+  return result;
+}
+
+// Guarda en memoria la categoria seleccionada
+function agregarCategoria(checkboxValue) {
+  categoriesSelected.push(checkboxValue);
+}
+
+// Elimina en memoria la categoria seleccionada
+function eliminarCategoria(categoriesSelectedIndex, checkboxValue) {
+  categoriesSelected.splice(categoriesSelectedIndex, 1);
+
+  eventsFound = eventsFound.filter((e) => e.category !== checkboxValue);
+  console.log(eventsFound);
+}
+
+inputSearch.addEventListener("input", function (event) {
+  let eventosFiltro = null;
+  inputSearchValue = event.target.value
+  console.log(eventsFound);
+
+  if (eventsFound.length) {
+    eventosFiltro = buscarEventos(eventsFound) 
+    
+  } else {
+    eventosFiltro = buscarEventos(events) 
+  }
+
+  containerMainPast.innerHTML = "";
+
+  eventosFiltro.forEach(eventosPasados2);
+});
+
+  
+    return events
+
+  } catch(error){
+    console.log('hubo error')
+  }
+  }
+  fetchApi()
+
 function eventosPasados2(evento){
   containerMainPast.innerHTML += `
       <div class="card" style="width: 18rem">
@@ -22,102 +142,36 @@ function eventosPasados2(evento){
         <p class="card-text"> ${evento.description}</p>
         <div class="d-flex gap-3">
           <p>price $ ${evento.price}</p>
-          <a href="./description.html?id=${evento._id}" class="btn btn-dark">Ver Mas</a>
+          <a href="./description.html?id=${evento.id}" class="btn btn-dark">Ver Mas</a>
         </div>
       </div>
       </div>
      `
 }
-eventosPasados.forEach(eventosPasados2)
-//---------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------
+
 let inputSearch = document.getElementById("js-search");
 
-inputSearch.addEventListener("input", function (event) {
-  let eventosFiltro = null
-  console.log(eventsFound);
-  if (eventsFound.length) {
 
-    eventosFiltro = eventsFound.filter((evento) => {
-      return evento.name.toLowerCase().includes(event.target.value.toLowerCase());
-    });
-  
 
-  } else {
-    eventosFiltro = eventosPasados.filter((evento) => {
-      return evento.name.toLowerCase().includes(event.target.value.toLowerCase());
-    });
-  }
-
-  containerMainPast.innerHTML = "";
-
-  eventosFiltro.forEach(eventosPasados2);
-});
-
-let categorias = eventosPasados.map(function (evento) {
-  return evento.category;
-});
-categorias = new Set(categorias);
+//----------------------------------------------------------------------------------------
 
 let inputcheckbox = document.getElementById("js-checkbox");
 
-categorias.forEach(function (evento) {
+function imprimirCategorias(evento) {
+  // imprimir cards
   inputcheckbox.innerHTML += `
   <div class="form-check form-check-inline">
   <input
     class="form-check-input"
     type="checkbox"
-    id="inlineCheckbox1"
+    id="${evento}"
     value="${evento}"
   />
-  <label class="form-check-label" for="inlineCheckbox1"
+  <label class="form-check-label" for=${evento}
     >${evento}</label
   >
   </div>`;
-});
-
-inputcheckbox.addEventListener("click", (event) => {
-  console.log(event);
-
-  const checkboxValue = event.target.value;
-  console.log(checkboxValue);
-
-  if (checkboxValue) {
-    const categoriesSelectedIndex = categoriesSelected.findIndex(
-      (c) => c === checkboxValue
-    );
-
-    console.log(categoriesSelectedIndex);
-
-    if (categoriesSelectedIndex !== -1) {
-      categoriesSelected.splice(categoriesSelectedIndex, 1);
-      eventsFound = eventsFound.filter(e => e.category !== checkboxValue)
-      console.log(eventsFound);
-
-    } else {
-      categoriesSelected.push(checkboxValue);
-    }
-    eventsFound = []
-
-    for (let i = 0; i < categoriesSelected.length; i++) {
-      for (let j = 0; j < eventosPasados.length; j++) {
-        if (categoriesSelected[i] === eventosPasados[j].category) {
-          eventsFound.push(eventosPasados[j])
-        }
-      }
-    }
-
-    containerMainPast.innerHTML = "";
-
-    if (eventsFound.length) {
-      eventsFound.forEach(eventosPasados2);
-    } else {
-      console.log(events);
-      eventosPasados.forEach(eventosPasados2);
-    }
-  
-    console.log(categoriesSelected);
-  }
-
-});
+}
 
 
